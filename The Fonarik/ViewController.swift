@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -21,6 +22,28 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         updateUI()
         
+    }
+    /// Toggle LED flashlight
+    func toggleTorch(on: Bool) {
+        guard let device = AVCaptureDevice.default(for: .video) else { return }
+
+        if device.hasTorch {
+            do {
+                try device.lockForConfiguration()
+
+                if on == true {
+                    device.torchMode = .on
+                } else {
+                    device.torchMode = .off
+                }
+
+                device.unlockForConfiguration()
+            } catch {
+                print("Torch could not be used")
+            }
+        } else {
+            print("Torch is not available")
+        }
     }
     /// Switch to color
     /// - returns: UIColor
@@ -45,11 +68,13 @@ class ViewController: UIViewController {
     }
     fileprivate func updateUI() {
         view.backgroundColor = lightOn(number: isLight)
-        // Set screen brightness: ON for colors, OFF for black
+        // Set screen brightness and LED flashlight: ON for colors, OFF for black
         if isLight == 0 {
             UIScreen.main.brightness = CGFloat(0.0)
+            toggleTorch(on: false)
         } else {
             UIScreen.main.brightness = CGFloat(1.0)
+            toggleTorch(on: true)
         }
     }
     
