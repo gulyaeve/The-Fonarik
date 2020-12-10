@@ -9,12 +9,14 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var isLight = false
+
     override var prefersStatusBarHidden: Bool{
         return true
     }
     
-    var isLight = false
-
+    // MARK: - Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
@@ -25,10 +27,12 @@ class ViewController: UIViewController {
         UIScreen.main.brightness = isLight ? CGFloat(1.0): CGFloat(0.0)
     }
     
-    @IBAction func buttonPressed() {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         isLight.toggle()
         updateUI()
     }
+    
+
     
 
 }
