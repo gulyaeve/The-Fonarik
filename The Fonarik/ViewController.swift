@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     }
     fileprivate func updateUI() {
         view.backgroundColor = isLight ? .white: .black
+        UIScreen.main.brightness = isLight ? CGFloat(1.0): CGFloat(0.0)
     }
     
     @IBAction func buttonPressed() {
