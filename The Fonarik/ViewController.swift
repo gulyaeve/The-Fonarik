@@ -66,6 +66,7 @@ class ViewController: UIViewController {
             return color
         }
     }
+    /// Set backgroud color, screen brightness and LED flashlight
     fileprivate func updateUI() {
         view.backgroundColor = lightOn(number: isLight)
         // Set screen brightness and LED flashlight: ON for colors, OFF for black
